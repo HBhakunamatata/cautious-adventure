@@ -1,0 +1,25 @@
+{% extends 'main.html' %}
+
+{% block content %}
+
+<main>
+    <section>
+        <ul>
+            {% for topic in page_topics %}
+            <li>
+                <div>
+                    <a href="{% url 'topic-detail' topic.topic_id %}"><h3>{{topic.topic_subject}}</h3></a>
+                    <p>Update time : <time>{{ topic.create_time|date:"Y-m-d H:i"}}</time></p>
+                </div>
+            </li>
+            {% endfor %}
+        </ul>
+        
+        {% include 'pagination.html' %}
+    </section>
+
+    <aside>
+    </aside>
+</main>
+
+{% endblock content %}

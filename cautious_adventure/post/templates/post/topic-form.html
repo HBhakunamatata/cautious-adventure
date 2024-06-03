@@ -1,0 +1,26 @@
+
+{% extends 'form-template.html' %}
+
+{% load static %}
+
+
+{% block content %}
+
+<div>
+
+    <a href="{% url 'topic-page' %}"><button>Back</button></a>
+
+    <form method="post">
+        {% csrf_token %}
+
+        {% for field in form %}
+            <label for="{{field.label}}">{{field.label}}</label>
+            {{field}}
+        {% endfor %}
+
+        <button type="submit">Submit</button>
+    </form>
+</div>
+
+
+{% endblock content %}

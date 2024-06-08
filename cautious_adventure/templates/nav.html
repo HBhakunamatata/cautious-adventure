@@ -6,7 +6,7 @@
         <form method="get" action="{% url 'topic-page' %}">
             <label for="search"></label>
             <input type="search" name="search_param" id="search" placeholder="Search topics you interested">
-            <button>Search</button>
+            <button type="submit">Search</button>
         </form>
     </div>
     <a href="{% url 'topic_new' %}"><button>New Topic</button></a>

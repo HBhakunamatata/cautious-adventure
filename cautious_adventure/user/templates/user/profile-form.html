@@ -1,0 +1,21 @@
+{% extends 'form-template.html' %}
+
+{% load static %}
+
+{% block content %}
+
+<div>
+    <form action="{% url 'profile-update' %}" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+
+        {% for field in form %}
+        <label for="{{field.label}}">{{field.label}}</label>
+        {{field}}
+        {% endfor %}
+        <button type="submit">Update</button>
+    </form>
+
+</div>
+
+
+{% endblock content %}

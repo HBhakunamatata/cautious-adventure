@@ -1,0 +1,18 @@
+{% extends 'form-template.html' %}
+
+
+{% block content %}
+
+<div>
+    <form method="post">
+        {% csrf_token %}
+        {% for field in user_form %}
+            <label for="{{field.label}}">{{field.label}}</label>
+            {{field}}
+        {% endfor %}
+
+        <button type="submit">Submit</button>
+    </form>
+</div>
+
+{% endblock content %}

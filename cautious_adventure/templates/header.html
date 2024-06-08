@@ -3,11 +3,32 @@
 <header>
     <div class="header-one-row">
         <div class="header-one-row">
-            <img alt="website logo: one apple" src="{% static 'images/apple-one.svg' %}">
-            <h2 class="title-no-space">Cautious Adventure</h2>
+            <a href="{% url 'topic-page' %}">
+                <img alt="website logo: one apple" src="{% static 'images/apple-one.svg' %}">
+            </a>
+            <a href="{% url 'topic-page' %}">
+                <h2 class="title-no-space">Cautious Adventure</h2>
+            </a>
         </div>
-        <button>Login/Register</button>
+        
+        <div class="header-one-row">
+            {% if user.is_authenticated %}
+            <a href="{% url 'profile' %}" class="pagination-button">Profile</a>
+            <a href="{% url 'logout' %}" class="pagination-button">Logout</a>
+            {% else %}
+            <a href="{% url 'login-form' %}" class="pagination-button">Login/Register</a>
+            {% endif %}
+        </div>
     </div>
-    
+
+    <div>
+        {% if messages %}
+        <ul class="messages">
+            {% for message in messages %}
+            <li {% if message.tags %} class="message-{{ message.tags }}"{% endif %}>{{ message }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+    </div>
     
 </header>

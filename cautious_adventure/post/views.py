@@ -1,9 +1,11 @@
 from django.shortcuts import redirect, render
 from django.db.models import Q
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 
 from .models import Post, Topic, Category
-from .form import TopicForm, PostForm
+from .forms import TopicForm, PostForm
 
 # Create your views here.
 
@@ -34,6 +36,7 @@ def condition_query_topic(search_param):
     )
     return topics
 
+
 def get_page_range(page_no, num_pages, page_size=0):
     """TODO: use page_size to calculate page_range"""
     # half_range = int(page_size / 2)
@@ -44,6 +47,7 @@ def get_page_range(page_no, num_pages, page_size=0):
     if end_index > num_pages:
         end_index = num_pages
     return range(start_index, end_index + 1)
+
 
 def paginate_topic(page_no, page_size, topic_set):
     """paginate topic search set"""
@@ -73,7 +77,10 @@ def topic_detail(request, topic_id):
         if post_form.is_valid():
             new_post = post_form.save(commit=False)
             new_post.post_topic = select_topic
+            profile = request.user.profile
+            new_post.post_by = profile
             new_post.save()
+            messages.success(request, "Post was created sucessfully!")
             return redirect('topic-detail', select_topic.topic_id)
         else:
             print('post form is valid.')
@@ -82,6 +89,7 @@ def topic_detail(request, topic_id):
     return render(request, 'post/topic-post.html', context)
 
 
+@login_required
 def topic_new(request):
     """
     Get: give the page of topic form unfilled
@@ -92,11 +100,42 @@ def topic_new(request):
     if request.method == 'POST':
         topicForm = TopicForm(request.POST)
         if topicForm.is_valid():
-            topicForm.save()
+            new_topic = topicForm.save(commit=False)
+            user = request.user
+            new_topic.topic_by = user.profile
+            new_topic.save()
+            messages.success(request, "Topic was created sucessfully!")
             return redirect('topic-page')
+        else:
+            messages.error(request, "Topic message is missed maybe try again later.")
 
     context = {'form': topicForm}
     return render(request, 'post/topic-form.html', context)
 
+
+@login_required
+def topic_update(request, pk):
+    """update topic"""
+    profile = request.user.profile
+    select_topic = profile.topic_set.get(topic_id=pk)
+    form = TopicForm(instance=select_topic)
     
-    
+    if request.method == 'POST':
+        form = TopicForm(request.POST, instance=select_topic)
+        if form.is_valid():
+            form.save()
+            return redirect('profile')
+
+    context = {'form': form}
+    return render(request, 'post/topic-form.html', context)
+
+
+@login_required
+def topic_delete(request, pk):
+    """delete the topic"""
+    if request.method == 'POST':
+        profile = request.user.profile
+        select_topic = profile.topic_set.get(topic_id=pk)
+        select_topic.delete()
+        return redirect('profile')
+    return render(request, 'post/topic-delete-form.html')

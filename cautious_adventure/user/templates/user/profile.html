@@ -1,0 +1,32 @@
+{% extends 'main.html' %}
+
+{% load static %}
+
+{% block content %}
+
+<div>
+    <img alt="Profile Image" src="{{profile.prof_photo.url}}">
+    <h2>{{profile.prof_name}}</h2>
+    <p>{{profile.prof_username}}</p>
+    <p>{{profile.prof_email}}</p>
+    <a href="{% url 'profile-update' %}">Update</a>
+</div>
+
+
+<div>
+    <h2>My Topics</h2>
+    <ul>
+        {% for topic in user.profile.topic_set.all %}
+        <li>
+            <div>
+                <a href="{% url 'topic-detail' topic.topic_id %}"><h3>{{topic.topic_subject}}</h3></a>
+                <p>Update time : <time>{{ topic.create_time|date:"Y-m-d H:i"}}</time></p>
+                <a href="{% url 'topic-update' topic.topic_id %}">Update</a>
+                <a href="{% url 'topic-delete' topic.topic_id %}">Delete</a>
+            </div>
+        </li>
+        {% endfor %}
+    </ul>
+</div>
+
+{% endblock content %}

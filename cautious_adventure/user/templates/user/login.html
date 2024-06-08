@@ -1,0 +1,21 @@
+{% extends 'form-template.html' %}
+
+{% load static %}
+
+{% block content %}
+
+<div>
+    <form method="post" action="{% url 'login-form' %}">
+        {% csrf_token %}
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="username">
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password">
+
+        <button type="submit" >Login</button>
+        
+    </form>
+    <p>have not <em><a href="{% url 'register' %}">registered</a><em>?</p>
+</div>
+
+{% endblock %}

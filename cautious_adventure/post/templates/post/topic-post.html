@@ -2,6 +2,8 @@
 
 {% block content %}
 
+{% include 'nav.html' %}
+
 <h2>{{topic.topic_subject}}</h2>
 <p><time>{{topic.create_time|date:"Y-m-d H:i"}}</time></p>
 
@@ -10,13 +12,15 @@
     <li>
         <div>
             <p>{{post.post_content}}</p>
-            <p>creator name1 published in <time>{{post.create_time|date:'Y-m-d H:i'}}</time></p>
+            <p>creator <a href="{% url 'profile' %}">{{post.post_by}}</a> published in <time>{{post.create_time|date:'Y-m-d H:i'}}</time></p>
         </div>
     </li>
     {% endfor  %}
 </ul>
 
 <h3>Send Post</h3>
+
+{% if user.is_authenticated %}
 
 <form method="post">
     {% csrf_token %}
@@ -28,6 +32,14 @@
 
     <button type="submit">Publish</button>
 </form>
+
+{% else %}
+
+<p>User has not login, please <a href="{% url 'profile' %}">login</a> first.</p>
+
+{% endif %}
+
+
 
 
 {% endblock content %}

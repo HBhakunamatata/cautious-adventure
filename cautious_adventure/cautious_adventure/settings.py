@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'post.apps.PostConfig',
+    'user.apps.UserConfig',
 ]
 
 MIDDLEWARE = [
@@ -130,6 +131,8 @@ USE_L10N = True
 
 USE_TZ = True
 
+LOGIN_URL = '/profile/login'
+
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
@@ -141,6 +144,9 @@ STATICFILES_DIRS = [
 STATIC_URL = '/static/'
 # STATIC_ROOT = '/static/'
 
+
+MEDIA_ROOT = os.path.join(BASE_DIR, 'static/images')
+MEDIA_URL = 'images/'
 
 
 # Default primary key field type

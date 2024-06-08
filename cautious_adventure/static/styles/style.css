@@ -52,3 +52,18 @@
     border: 1px solid green;
 }
 
+
+
+/* message  */
+
+.message-error {
+    border: 1px solid red;
+}
+
+.message-info {
+    border: 1px solid yellow;
+}
+
+.message-success {
+    border: 1px solid green;
+}

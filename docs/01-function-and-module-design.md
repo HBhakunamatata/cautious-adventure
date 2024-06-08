@@ -63,7 +63,7 @@
 - Only unlogged user can be access to it
 - Make a signal to create a user when register a profile
     - When delete a user, the profile will be deleted
-    - When prifile is deleted, the user will be deleted
+    - When profile is deleted, the user will be deleted
     - Avoid the signal looping
 - redirect to login form
 
@@ -79,3 +79,9 @@
 - Only logged user can be access to it
 - change the state of user in backend and frontend
 - redirect to index page
+
+
+## TODO
+
+1. Profile update  <===> User update
+2. 

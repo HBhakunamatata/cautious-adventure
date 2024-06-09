@@ -7,10 +7,18 @@
 <div>
     <form method="post" action="{% url 'login-form' %}">
         {% csrf_token %}
-        <label for="username">Username:</label>
-        <input type="text" id="username" name="username">
-        <label for="password">Password:</label>
-        <input type="password" id="password" name="password">
+
+        <!-- {% for field in form %}
+            
+        {{field}}
+        {% endfor %} -->
+
+        {% for field in form %}
+            <div class="fieldWrapper">
+                {{ field.errors }}
+                {{ field.label_tag }} {{ field }}
+            </div>
+        {% endfor %}
 
         <button type="submit" >Login</button>
         

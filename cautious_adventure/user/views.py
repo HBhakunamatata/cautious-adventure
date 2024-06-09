@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 
-from .forms import CustomUserForm, ProfileForm
+from .forms import CustomUserForm, ProfileForm, LoginForm
 
 # Create your views here.
 
@@ -44,25 +44,32 @@ def goto_login(request):
     """
     if request.user.is_authenticated:
         return redirect('profile')
+    
+    form = LoginForm()
 
     if request.method == 'POST':
-        username = request.POST['username']
-        password = request.POST['password']
 
-        try:
-            user = User.objects.get(username=username)
-        except:
-            messages.info(request, 'User ' + username + ' is not existed!')
-            return render(request, 'user/login.html')
+        form = LoginForm(request.POST)
+        username = request.POST.get('username')
+        password = request.POST.get('password')
 
-        user = authenticate(request, username=username, password=password)
-        if user is None:
-            messages.error(request, "Sorry, username OR password is wrong.")
-        else:
-            login(request, user)
-            return redirect('profile')
+        if form.is_valid():
+            try:
+                user = User.objects.get(username=username)
+            except:
+                messages.info(request, 'User ' + username + ' is not existed!')
+                return render(request, 'user/login.html')
+
+            user = authenticate(request, username=username, password=password)
+            if user is None:
+                messages.error(request, "Sorry, username OR password is wrong.")
+            else:
+                login(request, user)
+                return redirect('profile')
+    
+    context = {'form': form}
         
-    return render(request, 'user/login.html')
+    return render(request, 'user/login.html', context)
 
 
 def register_user(request):

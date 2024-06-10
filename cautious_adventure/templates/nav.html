@@ -5,7 +5,7 @@
         <p>All 100 Topics</p>
         <form method="get" action="{% url 'topic-page' %}">
             <label for="search"></label>
-            <input type="search" name="search_param" id="search" placeholder="Search topics you interested">
+            <input type="search" name="search_param" id="search" value="{{search_param}}" placeholder="Search topics you interested">
             <button type="submit">Search</button>
         </form>
     </div>

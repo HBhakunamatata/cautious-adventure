@@ -24,7 +24,7 @@ def query_topics(request):
     page_size = 2
     page_topics, page_range = paginate_topic(page_no, page_size, topics)
     # print(page_topics)
-    context = {'page_topics': page_topics, 'page_range': page_range}
+    context = {'search_param': search_param, 'page_topics': page_topics, 'page_range': page_range}
     return render(request, 'post/topic-page.html', context)
 
 

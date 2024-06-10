@@ -15,7 +15,8 @@ class Profile(models.Model):
     create_time = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        result = self.prof_username
-        if self.prof_name:
-            result = self.prof_name
-        return result
+        # result = self.prof_username
+        # if self.prof_name:
+        #     result = self.prof_name
+        # return result
+        return self.prof_username

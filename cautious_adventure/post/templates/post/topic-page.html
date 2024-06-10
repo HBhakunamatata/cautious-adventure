@@ -17,9 +17,12 @@
             </li>
             {% endfor %}
         </ul>
+
+        {% include 'pagination.html' with page_topics=page_topics page_range=page_range search_param=search_param %}
         
-        {% include 'pagination.html' %}
     </section>
+
+    
 
     <aside>
     </aside>

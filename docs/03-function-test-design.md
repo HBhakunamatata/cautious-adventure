@@ -10,7 +10,7 @@
     - unlogged user: login/register
 - nav : All Topics + Search + Filter? + New Topic
     - new topic : unlogged--login form / logged--new form
-- main : topics + pagination
+- main : topics + pagination xx
 - footer : ??
 
 - This page is accessed to users unlogged  

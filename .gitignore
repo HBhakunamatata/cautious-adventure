@@ -167,3 +167,6 @@ cython_debug/
 
 # Decouple Config
 *.ini
+
+# Notes
+notes/
